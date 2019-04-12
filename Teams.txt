@@ -23,7 +23,7 @@ OKC,	Oklahoma City Thunder
 ORL,	Orlando Magic
 PHI,	Philadelphia 76ers
 PHX,	Phoenix Suns
-POR,	Portland Trail Blazers
+POR,	Portland TrailBlazers
 SAC,	Sacramento Kings
 SAS,	San Antonio Spurs
 TOR,	Toronto Raptors
