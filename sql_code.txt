@@ -1,1 +1,14 @@
-1. 
+#select * 
+#from player; 
+
+#select * 
+#from team;
+
+#select *
+#from playoffGame;
+
+select * 
+from coach;
+
+select * 
+from draftPick;
