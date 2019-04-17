@@ -1,5 +1,9 @@
+create table team (
+  teamName varchar(30) PRIMARY KEY
+);
+
 create table player (
-  playerID varchar(30) NOT NULL PRIMARY KEY,
+  playerID varchar(30) PRIMARY KEY,
   playerName varchar(30),
   teamName varchar(30),
   age int,
@@ -12,7 +16,7 @@ create table player (
   3pointers decimal,
   3pointerAttempts decimal,
   3pointerPercents decimal,
-  2pointers decimal
+  2pointers decimal,
   2pointerAttempts decimal,
   2pointerPercents decimal,
   effectiveFGPercent decimal,
@@ -29,40 +33,36 @@ create table player (
   personalFouls decimal,
   totalPoints decimal,
   CONSTRAINT FOREIGN KEY player(teamName) REFERENCES team(teamName)
-)
+);
 
 create table coach (
-  coachID int NOT NULL PRIMARY KEY,
+  coachID int PRIMARY KEY,
   coachName varchar(30),
-  from int,
-  to int,
+  startYear int,
+  endYear int,
   birthdate varchar(15),
   college varchar (30),
   teamName varchar(30),
   isActive bit,
   CONSTRAINT FOREIGN KEY coach(teamName) REFERENCES team(teamName)
-)
+);
 
 create table playoffGame (
   seasonYear int,
   league varchar(10),
   series varchar(30),
-  dates varchar(30) NOT NULL,
+  dates varchar(30),
   winner varchar(30),
   winnerGameWins int,
   loser varchar(30),
   loserGameWins int,
   PRIMARY KEY (dates, winner, loser),
-  CONSTRAINT FOREIGN KEY playoffGame(winner) REFERENCES team(teamName),
-  CONSTRAINT FOREIGN KEY playoffGame(loser) REFERENCES team(teamName)
-)
-
-create table team (
-  teamName varchar(30) NOT NULL PRIMARY KEY
-)
+  CONSTRAINT FOREIGN KEY playoffGameWinner(winner) REFERENCES team(teamName),
+  CONSTRAINT FOREIGN KEY playoffGameLoser(loser) REFERENCES team(teamName)
+);
 
 create table draftPick (
-  draftPickID int NOT NULL PRIMARY KEY,
+  draftPickID int PRIMARY KEY,
   year int,
   team varchar(30),
   league varchar(10),
@@ -72,4 +72,4 @@ create table draftPick (
   playerID varchar(30),
   college varchar(30),
   CONSTRAINT FOREIGN KEY draftPick(team) REFERENCES team(teamName)
-)
+);
