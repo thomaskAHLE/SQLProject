@@ -54,7 +54,7 @@ create table playoffGame (
   loserGameWins int,
   PRIMARY KEY (dates, winner, loser),
   CONSTRAINT FOREIGN KEY playoffGame(winner) REFERENCES team(teamName),
-  CONSTRAINT FOREIGN KEY playoffGame(loser) REFERENCES team (teamName)
+  CONSTRAINT FOREIGN KEY playoffGame(loser) REFERENCES team(teamName)
 )
 
 create table team (
