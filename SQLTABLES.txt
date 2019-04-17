@@ -1,5 +1,5 @@
 create table player (
-  playerID int NOT NULL PRIMARY KEY,
+  playerID varchar(30) NOT NULL PRIMARY KEY,
   playerName varchar(30),
   teamName varchar(30),
   age int,
@@ -39,7 +39,7 @@ create table coach (
   birthdate varchar(15),
   college varchar (30),
   teamName varchar(30),
-  isActive boolean,
+  isActive bit,
   CONSTRAINT FOREIGN KEY coach(teamName) REFERENCES team(teamName)
 )
 
@@ -52,8 +52,9 @@ create table playoffGame (
   winnerGameWins int,
   loser varchar(30),
   loserGameWins int,
-  PRIMARY KEY (dates, winner, loser)
-  CONSTRAINT FOREIGN KEY playoffGame(winner) REFERENCES team(loser)
+  PRIMARY KEY (dates, winner, loser),
+  CONSTRAINT FOREIGN KEY playoffGame(winner) REFERENCES team(teamName),
+  CONSTRAINT FOREIGN KEY playoffGame(loser) REFERENCES team (teamName)
 )
 
 create table team (
@@ -61,11 +62,14 @@ create table team (
 )
 
 create table draftPick (
-  draftPickID int PRIMARY KEY,
+  draftPickID int NOT NULL PRIMARY KEY,
   year int,
+  team varchar(30),
   league varchar(10),
   round int,
   pick int,
   playerName varchar (30),
-  college (30)
+  playerID varchar(30),
+  college varchar(30),
+  CONSTRAINT FOREIGN KEY draftPick(team) REFERENCES team(teamName)
 )
