@@ -7,8 +7,26 @@
 #select *
 #from playoffGame;
 
-select * 
-from coach;
+#select * 
+#from coach;
 
-select * 
-from draftPick;
+#select * 
+#from draftPick;
+
+/* List player names and age that play for the Houston Rockets and are older than 25 */
+/*SELECT playerName, age
+FROM player
+WHERE age > 25;*/
+
+/* For each player that was draft picked for the Golden State Warriors in 2008, 
+find the number of games they each played and the total points they have scored. */
+SELECT distinct p.playerName, p.gamesPlayed, p.totalPoints
+FROM player p, draftPick d 
+WHERE d.team = "Golden State Warriors";
+
+/* List the team and number of playoff games that each team has won */
+/*SELECT distinct winner, COUNT(winner) as num_wins
+FROM playoffGame
+GROUP BY winner;*/
+
+/* List all active coaches and their current team that have been coaching for more than 3 years */
