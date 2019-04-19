@@ -31,12 +31,19 @@ FROM playoffGame
 GROUP BY winner;*/
 
 /* List all active coaches and their current team that have been coaching for more than 3 years */
-SELECT coachName, teamName
+/*SELECT coachName, teamName
 FROM coach
-WHERE endYear - startYear > 3 and endYear = 2019;
+WHERE endYear - startYear > 3 and endYear = 2019;*/
 
 /* List all teams and the average number of total points among the players of that team */
-SELECT distinct t.teamName, AVG(p.totalPoints) as avg_total
+/*SELECT distinct t.teamName, AVG(p.totalPoints) as avg_total
 FROM team t, player p
 WHERE t.teamName = p.teamName
-GROUP BY teamName;
+GROUP BY teamName;*/
+
+/* Find the names of players that played more games than that of some players that have the name "Tyler". */
+SELECT playerName
+FROM player p
+WHERE p.gamesPlayed > some (SELECT p2.gamesPlayed
+				FROM player p2
+				WHERE p2.playerName like '%Tyler%');
