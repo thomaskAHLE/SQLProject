@@ -31,3 +31,12 @@ FROM playoffGame
 GROUP BY winner;*/
 
 /* List all active coaches and their current team that have been coaching for more than 3 years */
+SELECT coachName, teamName
+FROM coach
+WHERE endYear - startYear > 3 and endYear = 2019;
+
+/* List all teams and the average number of total points among the players of that team */
+SELECT distinct t.teamName, AVG(p.totalPoints) as avg_total
+FROM team t, player p
+WHERE t.teamName = p.teamName
+GROUP BY teamName;
