@@ -41,8 +41,9 @@ FROM team t, player p
 WHERE t.teamName = p.teamName
 GROUP BY teamName;
 
-/* Find the names of players that played more games than that of some players that have the name "Tyler". */
-SELECT playerName
+/* Find the names of players that played more games than that of some players that have the name "Tyler",
+and find how many games they have started and  how many minutes each player has played */
+SELECT playerName, gamesStarted, minutesPlayed
 FROM player p
 WHERE p.gamesPlayed > some (SELECT p2.gamesPlayed
 				FROM player p2
@@ -56,7 +57,7 @@ from draftPick join coach on (draftPick.college = coach.college and draftPick.te
 
 
 /* counts of draft picks no longer on their original teams from 2009 to present */
-select teamName, count(draftPickID)
+select teamName, count(draftPickID) as num_draftPicks
 from draftPick dp
 where dp.year >= 2009 and dp.playerName not in (select playerName from player where player.teamName = dp.teamName)
 group by dp.teamName;
