@@ -13,33 +13,50 @@
 #select * 
 #from draftPick;
 
+<<<<<<< HEAD
+#coaches who drafted players from their college
+select playerName, coachName
+from coach c join draftPick p on ( p.college = c.college and p.team = c.teamName);
+
+#drafted players no longer in NBA
+select playerName
+from draftPick
+where playerName not in (select playerName from player);
+
+select team, count(draftPickID)
+from draftPick
+where playerName not in (select playerName from player)
+group by team;
+
+
+=======
 /* List player names and age that play for the Houston Rockets and are older than 25 */
-SELECT playerName, age
+/*SELECT playerName, age
 FROM player
-WHERE age > 25;
+WHERE age > 25;*/
 
 /* For each player that was draft picked for the Golden State Warriors, find the number 
 of games they each played and the total points they have scored, listed alphabetically. */
-SELECT p.playerName, p.gamesPlayed, p.totalPoints
+/*SELECT p.playerName, p.gamesPlayed, p.totalPoints
 FROM player p, draftPick d 
 WHERE p.playerName = d.playerName and d.team = "Golden State Warriors"
-ORDER BY playerName;
+ORDER BY playerName;*/
 
 /* List the team and number of playoff games that each team has won */
-SELECT distinct winner, COUNT(winner) as num_wins
+/*SELECT distinct winner, COUNT(winner) as num_wins
 FROM playoffGame
-GROUP BY winner;
+GROUP BY winner;*/
 
 /* List all active coaches and their current team that have been coaching for more than 3 years */
-SELECT coachName, teamName
+/*SELECT coachName, teamName
 FROM coach
-WHERE endYear - startYear > 3 and isActive = 1;
+WHERE endYear - startYear > 3 and endYear = 2019;*/
 
 /* List all teams and the average number of total points among the players of that team */
-SELECT distinct t.teamName, AVG(p.totalPoints) as avg_total
+/*SELECT distinct t.teamName, AVG(p.totalPoints) as avg_total
 FROM team t, player p
 WHERE t.teamName = p.teamName
-GROUP BY teamName;
+GROUP BY teamName;*/
 
 /* Find the names of players that played more games than that of some players that have the name "Tyler". */
 SELECT playerName
@@ -47,23 +64,4 @@ FROM player p
 WHERE p.gamesPlayed > some (SELECT p2.gamesPlayed
 				FROM player p2
 				WHERE p2.playerName like '%Tyler%');
-
-
-/* get coaches, player pairs who went to the same college */
-select teamName as currTeam, coachName, playerName, coach.college
-from draftPick join coach on (draftPick.college = coach.college and draftPick.team = coach.teamName)
-;
-
-
-/* counts of draft picks no longer on their original teams from 2009 to present */
-select team, count(draftPickID)
-from draftPick dp
-where dp.year >= 2009 and dp.playerName not in (select playerName from player where player.teamName = dp.team)
-group by dp.team;
-
-
-
-
-
-
-
+>>>>>>> c8650659a386dec784648dca7325d5b91a46be88
