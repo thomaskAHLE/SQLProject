@@ -74,13 +74,13 @@ load data local infile '~/SQLProject/playoffGames.txt' into table playoffGame fi
 create table draftPick (
   draftPickID int PRIMARY KEY,
   year int,
-  team varchar(30),
+  teamName varchar(30),
   league varchar(10),
   round int,
   pick int,
   playerName varchar (30),
   playerID varchar(30),
   college varchar(30),
-  CONSTRAINT FOREIGN KEY draftPick(team) REFERENCES team(teamName)
+  CONSTRAINT FOREIGN KEY draftPick(teamName) REFERENCES team(teamName)
 );
 load data local infile '~/SQLProject/draftPicks.txt' into table draftPick fields terminated by ',';

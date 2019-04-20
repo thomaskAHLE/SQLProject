@@ -22,7 +22,7 @@ WHERE age > 25;
 of games they each played and the total points they have scored, listed alphabetically. */
 SELECT p.playerName, p.gamesPlayed, p.totalPoints
 FROM player p, draftPick d 
-WHERE p.playerName = d.playerName and d.team = "Golden State Warriors"
+WHERE p.playerName = d.playerName and d.teamName = "Golden State Warriors"
 ORDER BY playerName;
 
 /* List the team and number of playoff games that each team has won */
@@ -50,16 +50,16 @@ WHERE p.gamesPlayed > some (SELECT p2.gamesPlayed
 
 
 /* get coaches, player pairs who went to the same college */
-select teamName as currTeam, coachName, playerName, coach.college
-from draftPick join coach on (draftPick.college = coach.college and draftPick.team = coach.teamName)
+select coach.teamName as currTeam, coachName, playerName, coach.college
+from draftPick join coach on (draftPick.college = coach.college and draftPick.teamName = coach.teamName)
 ;
 
 
 /* counts of draft picks no longer on their original teams from 2009 to present */
-select team, count(draftPickID)
+select teamName, count(draftPickID)
 from draftPick dp
-where dp.year >= 2009 and dp.playerName not in (select playerName from player where player.teamName = dp.team)
-group by dp.team;
+where dp.year >= 2009 and dp.playerName not in (select playerName from player where player.teamName = dp.teamName)
+group by dp.teamName;
 
 
 
