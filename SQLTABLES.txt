@@ -70,7 +70,6 @@ create table playoffGame (
 );
 load data local infile '~/SQLProject/playoffGames.txt' into table playoffGame fields terminated by ',';
 
-
 create table draftPick (
   draftPickID int PRIMARY KEY,
   year int,
