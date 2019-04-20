@@ -46,6 +46,28 @@ GROUP BY teamName;*/
 FROM player p
 WHERE p.gamesPlayed > some (SELECT p2.gamesPlayed
 				FROM player p2
+<<<<<<< HEAD
 				WHERE p2.playerName like '%Tyler%');*/
+=======
+				WHERE p2.playerName like '%Tyler%');
+
+
+/* get coaches, player pairs who went to the same college */
+select teamName as currTeam, coachName, playerName, coach.college
+from draftPick join coach on (draftPick.college = coach.college and draftPick.team = coach.teamName)
+;
+
+
+/* counts of draft picks no longer on their original teams from 2009 to present */
+select team, count(draftPickID)
+from draftPick dp
+where dp.year >= 2009 and dp.playerName not in (select playerName from player where player.teamName = dp.team)
+group by dp.team;
+
+
+
+
+
+>>>>>>> 4263f941532016d0369959e51721bd2b11bd953e
 
 
