@@ -1,5 +1,5 @@
 
-/*create table team (
+create table team (
   teamName varchar(30) PRIMARY KEY
 );
 
@@ -41,7 +41,6 @@ create table player (
 );
 load data local infile '~/SQLProject/players.txt' into table player fields terminated by ',';
 
-
 create table coach (
   coachID int PRIMARY KEY,
   coachName varchar(30),
@@ -50,7 +49,7 @@ create table coach (
   birthdate varchar(15),
   college varchar (30),
   teamName varchar(30),
-  isActive bit,
+  isActive int,
   CONSTRAINT FOREIGN KEY coach(teamName) REFERENCES team(teamName)
 );
 load data local infile '~/SQLProject/coaches.txt' into table coach fields terminated by ',';
@@ -69,7 +68,7 @@ create table playoffGame (
   CONSTRAINT FOREIGN KEY playoffGameWinner(winner) REFERENCES team(teamName),
   CONSTRAINT FOREIGN KEY playoffGameLoser(loser) REFERENCES team(teamName)
 );
-load data local infile '~/SQLProject/playoffGames.txt' into table playoffGame fields terminated by ',';*/
+load data local infile '~/SQLProject/playoffGames.txt' into table playoffGame fields terminated by ',';
 
 
 create table draftPick (
