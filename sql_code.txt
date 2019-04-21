@@ -13,35 +13,35 @@
 #select * 
 #from draftPick;
 
-/* List player names and age that play for the Houston Rockets and are older than 25 */
+/* 1 List player names and age that play for the Houston Rockets and are older than 25 */
 SELECT playerName, age
 FROM player
-WHERE age > 25;
+WHERE age > 25 and teamName = "Houston Rockets";
 
-/* For each player that was draft picked for the Golden State Warriors, find the number 
+/* 2 For each player that was draft picked for the Golden State Warriors, find the number 
 of games they each played and the total points they have scored, listed alphabetically. */
 SELECT p.playerName, p.gamesPlayed, p.totalPoints
 FROM player p, draftPick d 
 WHERE p.playerName = d.playerName and d.teamName = "Golden State Warriors"
 ORDER BY playerName;
 
-/* List the team and number of playoff games that each team has won */
+/* 3 List the team and number of playoff games that each team has won */
 SELECT distinct winner, COUNT(winner) as num_wins
 FROM playoffGame
 GROUP BY winner;
 
-/* List all active coaches and their current team that have been coaching for more than 3 years */
+/* 4  List all active coaches and their current team that have been coaching for more than 3 years */
 SELECT coachName, teamName
 FROM coach
 WHERE endYear - startYear > 3 and isActive = 1;
 
-/* List all teams and the average number of total points among the players of that team */
+/* 5  List all teams and the average number of total points among the players of that team */
 SELECT distinct t.teamName, AVG(p.totalPoints) as avg_total
 FROM team t, player p
 WHERE t.teamName = p.teamName
 GROUP BY teamName;
 
-/* Find the names of players that played more games than that of some players that have the name "Tyler",
+/*6  Find the names of players that played more games than that of some players that have the name "Tyler",
 and find how many games they have started and  how many minutes each player has played */
 SELECT playerName, gamesStarted, minutesPlayed
 FROM player p
@@ -50,17 +50,31 @@ WHERE p.gamesPlayed > some (SELECT p2.gamesPlayed
 				WHERE p2.playerName like '%Tyler%');
 
 
-/* get coaches, player pairs who went to the same college */
+/* 7 Get coaches, player pairs who went to the same college */
 select coach.teamName as currTeam, coachName, playerName, coach.college
 from draftPick join coach on (draftPick.college = coach.college and draftPick.teamName = coach.teamName)
 ;
 
 
-/* counts of draft picks no longer on their original teams from 2009 to present */
+/* 8 Counts of draft picks no longer on their original teams from 2009 to present */
 select teamName, count(draftPickID) as num_draftPicks
 from draftPick dp
 where dp.year >= 2009 and dp.playerName not in (select playerName from player where player.teamName = dp.teamName)
 group by dp.teamName;
+
+/* 9 Teams that won playoff series in 2018 */
+select  distinct winner
+from playoffGame
+where seasonYear = 2018
+;
+
+/* 10 Teams that missed the playoffs in 2018, but made them in 2019 */
+select distinct teamName
+from player
+where teamName not in (select winner from playoffGame where seasonYear = 2018 ) and teamName not in (select loser from playoffGame where seasonYear = 2018);
+
+
+
 
 
 
