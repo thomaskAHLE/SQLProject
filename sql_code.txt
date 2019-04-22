@@ -52,26 +52,26 @@ WHERE p.gamesPlayed > some (SELECT p2.gamesPlayed
 
 /* 7 Get coaches, player pairs who went to the same college */
 select coach.teamName as currTeam, coachName, playerName, coach.college as college
-from draftPick join coach on (draftPick.college = coach.college and draftPick.teamName = coach.teamName)
-;
-
+from draftPick join coach on (draftPick.college = coach.college and draftPick.teamName = coach.teamName);
 
 /* 8 Counts of draft picks no longer on their original teams from 2009 to present */
 select teamName, count(draftPickID) as num_draft_picks_since_2009_no_longer_on_team
 from draftPick dp
-where dp.year >= 2009 and dp.playerName not in (select playerName from player where player.teamName = dp.teamName)
+where dp.year >= 2009 and dp.playerName not in (select playerName 
+						from player
+						where player.teamName = dp.teamName)
 group by dp.teamName;
 
 /* 9 Teams that won playoff series in 2018 */
 select  distinct winner as winner_of_2018_playoff_series
 from playoffGame
-where seasonYear = 2018
-;
+where seasonYear = 2018;
 
 /* 10 Teams that missed the playoffs in 2018 */
 select distinct teamName as missed_playoffs_in_2018
 from team
-where teamName not in (select winner from playoffGame where seasonYear = 2018 ) and teamName not in (select loser from playoffGame where seasonYear = 2018);
+where teamName not in (select winner from playoffGame where seasonYear = 2018 ) 
+	and teamName not in (select loser from playoffGame where seasonYear = 2018);
 
 
 /* 11 Players that were drafted by the Thunder but are now on other teams */
@@ -79,9 +79,10 @@ select draftPick.playerName as NotOnThunder, player.teamName as current_team
 from draftPick join player on (draftPick.playerName = player.playerName)
 where draftPick.teamName = "Oklahoma City Thunder" and draftPick.teamName <> player.teamName;
 
-
-
-
-
+/* 12 List teams and their current active coaches that won the playoff finals and the year they won */
+SELECT winner as winning_team, coachName as current_coach, seasonYear
+FROM playoffGame p, coach c
+WHERE c.isActive = 1 and p.series = "Finals" and c.teamName = p.winner
+GROUP BY p.seasonYear;
 
 
