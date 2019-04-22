@@ -9,7 +9,7 @@ load data local infile '~/SQLProject/Teams.csv' into table team fields terminate
 
 create table player (
   playerID varchar(30) PRIMARY KEY,
-  playerName varchar(30),
+  playerName varchar(30) NOT NULL,
   teamName varchar(30),
   age int,
   gamesPlayed int,
@@ -43,26 +43,26 @@ load data local infile '~/SQLProject/players.txt' into table player fields termi
 
 create table coach (
   coachID int PRIMARY KEY,
-  coachName varchar(30),
-  startYear int,
+  coachName varchar(30) NOT NULL,
+  startYear int NOT NULL,
   endYear int,
   birthdate varchar(15),
   college varchar (30),
   teamName varchar(30),
-  isActive int,
+  isActive int NOT NULL,
   CONSTRAINT FOREIGN KEY coach(teamName) REFERENCES team(teamName)
 );
 load data local infile '~/SQLProject/coaches.txt' into table coach fields terminated by ',';
 
 
 create table playoffGame (
-  seasonYear int,
+  seasonYear int NOT NULL,
   series varchar(30),
   dates varchar(30),
   winner varchar(30),
-  winnerGameWins int,
+  winnerGameWins int NOT NULL,
   loser varchar(30),
-  loserGameWins int,
+  loserGameWins int NOT NULL,
   PRIMARY KEY (dates, winner, loser),
   CONSTRAINT FOREIGN KEY playoffGameWinner(winner) REFERENCES team(teamName),
   CONSTRAINT FOREIGN KEY playoffGameLoser(loser) REFERENCES team(teamName)
@@ -71,12 +71,11 @@ load data local infile '~/SQLProject/playoffGames.txt' into table playoffGame fi
 
 create table draftPick (
   draftPickID int PRIMARY KEY,
-  year int,
+  year int NOT NULL,
   teamName varchar(30),
-  round int,
-  pick int,
-  playerName varchar (30),
-  playerID varchar(30),
+  round int NOT NULL,
+  pick int NOT NULL,
+  playerName varchar (30) NOT NULL,
   college varchar(30),
   CONSTRAINT FOREIGN KEY draftPick(teamName) REFERENCES team(teamName)
 );
