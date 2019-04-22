@@ -57,7 +57,6 @@ load data local infile '~/SQLProject/coaches.txt' into table coach fields termin
 
 create table playoffGame (
   seasonYear int,
-  league varchar(10),
   series varchar(30),
   dates varchar(30),
   winner varchar(30),
@@ -74,7 +73,6 @@ create table draftPick (
   draftPickID int PRIMARY KEY,
   year int,
   teamName varchar(30),
-  league varchar(10),
   round int,
   pick int,
   playerName varchar (30),
