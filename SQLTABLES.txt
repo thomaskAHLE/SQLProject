@@ -60,9 +60,8 @@ create table playoffGame (
   series varchar(30),
   dates varchar(30),
   winner varchar(30),
-  winnerGameWins int NOT NULL,
   loser varchar(30),
-  loserGameWins int NOT NULL,
+  seriesLength int NOT NULL,
   PRIMARY KEY (dates, winner, loser),
   CONSTRAINT FOREIGN KEY playoffGameWinner(winner) REFERENCES team(teamName),
   CONSTRAINT FOREIGN KEY playoffGameLoser(loser) REFERENCES team(teamName)
